@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tetris</title>
+    <style>
+    body {
+    background-color: rgb(9,17,26);
+    }
+
+    #logo {
+        background-color: rgb(200,200,200);
+        height: 300px;
+    }
+
+    div {
+        background-color: rgb(100,100,200);
+    }
+
+    p {
+        background-color: rgb(200,100,200);
+    }
+
+    </style>
+    </head>
+    <body>
+        <p id="clickNum">0</p>
+        <div id="logo" onclick="clicked()">123</div>
+        <div id="ite" onclick="buy('ite')"><p>num:</p>0</div>
+        <div id="cla" onclick="buy('cla')"><p>num:</p>0</div>
+        <div id="pro" onclick="buy('pro')"><p>num:</p>0</div>
+        <div id="des" onclick="buy('des')"><p>num:</p>0</div>
+        <div id="add" onclick="buy('add')"><p>num:</p>0</div>
+        
+
+    <script>
+let clickNum = 0;
+let clickRate = 0;
+
+let clikerArr = [[1,5,10,50,100], [10,500,10000,50000,1000000]]; // ite, cla, pro, des, add
+let clikerNumArr = [0,0,0,0,0]; // ite, cla, pro, des, add
+let clikerDic = {ite: 0, cla: 1, pro: 2, des: 3, add: 4};
+
+function clicked() {
+    clickNum++;
+    updataClickNum();
+}
+
+function buy(buyID) {
+    let idx = clikerDic[buyID]
+
+    if (clickNum >= clikerArr[1][idx]) {
+        clickNum -= clikerArr[1][idx]
+        clickRate += clikerArr[0][idx];
+        clikerNumArr[idx]++;
+        document.getElementById(buyID).innerHTML = clikerNumArr[idx];
+    }
+    else {
+        //wanning
+    }
+}
+
+function interval() {
+    clickNum += clickRate;
+    updataClickNum();
+}
+
+function updataClickNum() {
+    document.getElementById("clickNum").innerHTML = parseInt(clickNum);
+}
+
+function init() {
+    setInterval(interval, 100);
+}
+
+init();
+                
+            </script>
+    </body>
+</html>
